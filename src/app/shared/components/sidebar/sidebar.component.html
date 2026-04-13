@@ -1,0 +1,83 @@
+<aside class="sidebar" 
+       [class.collapsed]="isEffectivelyCollapsed"
+       (mouseenter)="onMouseEnter()"
+       (mouseleave)="onMouseLeave()">
+  
+  <!-- Mobile-only header with Close button -->
+  <div class="sidebar-mobile-header">
+    <button class="mobile-close-btn" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <!-- Role Banner -->
+  <div class="sidebar-header">
+    <div class="role-badge">
+      <mat-icon>verified_user</mat-icon>
+      <span *ngIf="!isEffectivelyCollapsed">{{ userRole }}</span>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav custom-scroll">
+    <ng-container *ngFor="let item of menuItems">
+      <ng-container *ngTemplateOutlet="navItemTemplate; context: { $implicit: item, level: 0 }"></ng-container>
+    </ng-container>
+  </nav>
+
+  <!-- Sidebar Footer -->
+  <div class="sidebar-footer" *ngIf="!isEffectivelyCollapsed">
+    <div class="help-box">
+      <mat-icon>support_agent</mat-icon>
+      <p>Asset Support Ready</p>
+    </div>
+  </div>
+</aside>
+
+<!-- Recursive Nav Item Template -->
+<ng-template #navItemTemplate let-item let-level="level">
+  <div class="nav-item-wrapper" [class.has-submenu]="item.subMenu && item.subMenu.length > 0">
+    
+    <!-- Item with Submenu (Toggle) -->
+    <ng-container *ngIf="item.subMenu && item.subMenu.length > 0; else standaloneLink">
+      <button type="button" 
+              class="nav-item submenu-toggle" 
+              (click)="toggleSubMenu(item.name)"
+              [class.open]="openMenus[item.name]"
+              [style.padding-left.px]="isEffectivelyCollapsed ? 12 : (level * 12 + 16)">
+        <div class="nav-link-content">
+          <mat-icon *ngIf="item.icon" class="nav-icon">{{ item.icon }}</mat-icon>
+          <div *ngIf="!item.icon && level > 0" class="sub-dot"></div>
+          <span *ngIf="!isEffectivelyCollapsed" class="nav-label">{{ item.name }}</span>
+        </div>
+        <mat-icon *ngIf="!isEffectivelyCollapsed" class="chevron">expand_more</mat-icon>
+        <div class="tooltip" *ngIf="isEffectivelyCollapsed">{{ item.name }}</div>
+      </button>
+
+      <!-- Nested Submenu Rendering -->
+      <div class="submenu-container" 
+           [class.expanded]="openMenus[item.name]"
+           [style.max-height]="openMenus[item.name] ? '1000px' : '0'">
+        <ng-container *ngFor="let sub of item.subMenu">
+          <ng-container *ngTemplateOutlet="navItemTemplate; context: { $implicit: sub, level: level + 1 }"></ng-container>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <!-- Standalone Link -->
+    <ng-template #standaloneLink>
+      <a [routerLink]="item.path" 
+         routerLinkActive="active" 
+         [routerLinkActiveOptions]="{exact: true}"
+         class="nav-item standalone"
+         [style.padding-left.px]="isEffectivelyCollapsed ? 12 : (level * 12 + 16)">
+        <div class="nav-link-content">
+          <mat-icon *ngIf="item.icon" class="nav-icon">{{ item.icon }}</mat-icon>
+          <div *ngIf="!item.icon && level > 0" class="sub-dot"></div>
+          <span *ngIf="!isEffectivelyCollapsed" class="nav-label">{{ item.name }}</span>
+        </div>
+        <div class="tooltip" *ngIf="isEffectivelyCollapsed">{{ item.name }}</div>
+      </a>
+    </ng-template>
+
+  </div>
+</ng-template>

@@ -1,0 +1,94 @@
+<nav class="app-navbar">
+  <div class="nav-container">
+    
+    <!-- Left Section: Logo & Branding -->
+    <div class="nav-left">
+      <button class="mobile-drawer-btn" (click)="onToggleSidebar()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <div class="brand-group" routerLink="/">
+        <div class="logo-wrapper">
+          <img src="assets/logo.png" alt="Neemus Logo" class="brand-logo">
+        </div>
+        <div class="brand-text">
+          <span class="company-name">Neemus Software</span>
+          <span class="app-subtitle">Asset Management</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Middle Section: Desktop Nav Links -->
+    <ul class="desktop-nav">
+      <li *ngFor="let link of navLinks" class="nav-item">
+        <a [routerLink]="link.path" 
+           routerLinkActive="active" 
+           [routerLinkActiveOptions]="{exact: false}"
+           class="nav-link">
+          {{ link.name }}
+          <span class="active-indicator"></span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Right Section: Actions & Profile -->
+    <div class="nav-right">
+      <!-- Notifications -->
+      <div class="notification-pill">
+        <mat-icon class="icon">notifications</mat-icon>
+        <span class="pulse-badge"></span>
+      </div>
+
+      <!-- Profile Dropdown -->
+      <div class="profile-container" [class.open]="profileOpen" (click)="toggleProfile()">
+        <div class="avatar-circle">
+          {{ userInitials }}
+        </div>
+        <mat-icon class="dropdown-chevron">expand_more</mat-icon>
+
+        <!-- Profile Dropdown Menu -->
+        <div class="profile-dropdown" *ngIf="profileOpen">
+           <a routerLink="/user/profile" class="dropdown-item">
+            <mat-icon>account_circle</mat-icon>
+            My Profile
+           </a>
+           <a routerLink="/user/settings" class="dropdown-item">
+            <mat-icon>settings</mat-icon>
+            Settings
+           </a>
+           <div class="dropdown-divider"></div>
+           <button (click)="logout()" class="dropdown-item logout-item">
+            <mat-icon>logout</mat-icon>
+            Logout
+           </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-menu-toggle" (click)="toggleMobileMenu()">
+        <mat-icon>{{ mobileMenuOpen ? 'close' : 'more_vert' }}</mat-icon>
+      </button>
+    </div>
+
+  </div>
+</nav>
+
+<!-- Mobile Navigation Menu -->
+<div class="mobile-nav-panel" [class.open]="mobileMenuOpen">
+  <div class="mobile-nav-header">
+    <span class="menu-title">Menu</span>
+    <button (click)="toggleMobileMenu()" class="close-btn"><mat-icon>close</mat-icon></button>
+  </div>
+  <ul class="mobile-links">
+    <li *ngFor="let link of navLinks" (click)="toggleMobileMenu()">
+      <a [routerLink]="link.path" 
+         routerLinkActive="mobile-active"
+         class="mobile-link">
+        {{ link.name }}
+      </a>
+    </li>
+  </ul>
+</div>
+
+<!-- Mobile Overlay -->
+<div class="nav-overlay" *ngIf="mobileMenuOpen" (click)="toggleMobileMenu()"></div>

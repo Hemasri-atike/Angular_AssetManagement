@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,10 @@ export class LoginComponent {
     'HR Admin'
   ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   togglePassword() {
     this.showPassword = !this.showPassword;
@@ -39,17 +43,29 @@ export class LoginComponent {
       return;
     }
 
-    // Save selected role to local storage
-    localStorage.setItem('userRole', this.selectedRole);
-    
+    console.log('Login attempt with role:', this.selectedRole);
+
+    // Save selected role via AuthService
+    this.authService.setRole(this.selectedRole);
+
+    // Explicit mapping to prevent URL segment errors like 'hr%20admin'
+    const roleRouteMap: { [key: string]: string } = {
+      'Requester': 'requester',
+      'Auditor': 'auditor',
+      'Approver': 'approver',
+      'Admin': 'admin',
+      'IT-Admin': 'it-admin',
+      'HR Admin': 'hr-admin'
+    };
+
+    const path = roleRouteMap[this.selectedRole] || 'user';
+    console.log('Navigating to path:', path);
+
     // In a real app, you'd verify credentials here.
-    // Redirection logic based on role:
-    const path = this.selectedRole.toLowerCase();
     this.router.navigate([`/${path}`]);
   }
 
   onDownload() {
     console.log('Download clicked');
-    // Implement download logic if needed
   }
 }

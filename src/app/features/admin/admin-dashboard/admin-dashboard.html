@@ -1,1 +1,63 @@
-<p>admin-dashboard works!</p>
+<div class="dashboard-page">
+  <header class="page-header">
+    <div class="header-info">
+      <h1>Admin Dashboard</h1>
+      <p>Overview of system assets and user activities.</p>
+    </div>
+  </header>
+
+  <div class="content-grid">
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-card blue">
+        <div class="stat-icon"><mat-icon>devices</mat-icon></div>
+        <div class="stat-content">
+          <span class="stat-label">Total Assets</span>
+          <span class="stat-value">1,284</span>
+        </div>
+        <div class="stat-trend positive text-xs">+12% this month</div>
+      </div>
+
+      <div class="stat-card purple">
+        <div class="stat-icon"><mat-icon>pending_actions</mat-icon></div>
+        <div class="stat-content">
+          <span class="stat-label">Pending Requests</span>
+          <span class="stat-value">42</span>
+        </div>
+        <div class="stat-trend warning text-xs">High Priority</div>
+      </div>
+
+      <div class="stat-card orange">
+        <div class="stat-icon"><mat-icon>report_problem</mat-icon></div>
+        <div class="stat-content">
+          <span class="stat-label">Maintenance Due</span>
+          <span class="stat-value">15</span>
+        </div>
+        <div class="stat-trend negative text-xs">Urgent Action</div>
+      </div>
+
+      <div class="stat-card green">
+        <div class="stat-icon"><mat-icon>verified</mat-icon></div>
+        <div class="stat-content">
+          <span class="stat-label">Audit Score</span>
+          <span class="stat-value">98.2%</span>
+        </div>
+        <div class="stat-trend positive text-xs">Perfect</div>
+      </div>
+    </div>
+
+    <!-- Recent Activity Section -->
+    <div class="activity-section">
+      <div class="section-card">
+        <div class="card-header">
+          <h2>Recent Movements</h2>
+          <button class="text-btn">View All</button>
+        </div>
+        <div class="empty-placeholder">
+          <mat-icon>sync_alt</mat-icon>
+          <p>System is up to date.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

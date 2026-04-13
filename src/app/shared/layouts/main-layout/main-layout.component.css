@@ -1,0 +1,92 @@
+.shell-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: #f1f5f9;
+}
+
+/* Main Wrapper holds Sidebar and Content side-by-side */
+.main-wrapper {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  padding-top: 64px;
+}
+
+/* 
+   We wrap the sidebar in a container that has a fixed width.
+   This prevents the main content area from shifting when the sidebar expands on hover.
+*/
+.sidebar-container {
+  width: 280px; /* Default width when expanded */
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  z-index: 1200;
+  position: relative;
+}
+
+.sidebar-container.mini {
+  width: 72px;
+}
+
+.content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  background: white;
+  border-top-left-radius: 24px;
+  margin-top: 12px;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05), -10px 0 20px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.scroll-viewport {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.mobile-overlay {
+  display: none;
+}
+
+/* Sidebar Responsive Logic */
+@media (max-width: 1024px) {
+  .sidebar-container {
+    width: 0 !important;
+  }
+
+  .content-area {
+    border-radius: 0;
+    margin-top: 0;
+    margin-left: 0;
+    width: 100%;
+  }
+
+  app-sidebar {
+    position: absolute;
+    left: -280px;
+    top: 64px;
+    bottom: 0;
+    transition: left 0.3s ease;
+    z-index: 1300;
+  }
+
+  app-sidebar.mobile-open {
+    left: 0;
+  }
+
+  .mobile-overlay {
+    display: block;
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 1250;
+  }
+}

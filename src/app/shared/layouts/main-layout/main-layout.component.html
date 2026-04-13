@@ -1,0 +1,28 @@
+<div class="shell-container">
+  <!-- Fixed Navbar -->
+  <app-navbar (toggleSidebar)="toggleMobileSidebar()"></app-navbar>
+
+  <div class="main-wrapper">
+    <!-- Wrap sidebar to prevent layout jitter on hover expansion -->
+    <div class="sidebar-container" [class.mini]="isSidebarCollapsed">
+      <app-sidebar 
+        [isCollapsed]="isSidebarCollapsed" 
+        [class.mobile-open]="isMobileSidebarOpen"
+        (closeSidebar)="closeMobileSidebar()">
+      </app-sidebar>
+    </div>
+
+    <!-- Content Area Offset by Navbar -->
+    <main class="content-area">
+      <!-- Overlay for mobile when sidebar is open -->
+      <div class="mobile-overlay" 
+           *ngIf="isMobileSidebarOpen" 
+           (click)="closeMobileSidebar()">
+      </div>
+      
+      <div class="scroll-viewport">
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </div>
+</div>
