@@ -1,0 +1,100 @@
+<div class="profile-container animate-fade-in">
+  
+  <!-- 🔷 HEADER CARD: Glassmorphism effect -->
+  <div class="header-card">
+    <div class="header-content">
+      <div class="avatar-section">
+        <div class="avatar-large">
+          {{ user.charAt(0).toUpperCase() }}
+        </div>
+        <div class="user-info">
+          <h1>{{ profileData.firstName }} {{ profileData.lastName }}</h1>
+          <p class="role-text">{{ profileData.role }}</p>
+          <div class="id-badge">Employee ID: {{ profileData.employeeId }}</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="edit-btn" (click)="toggleEdit()">
+          {{ isEditing ? 'Cancel Edit' : 'Edit Profile' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔷 DETAILS CARD -->
+  <div class="details-card">
+    <div class="details-header">
+      <h2>Profile Information</h2>
+      <button *ngIf="isEditing" class="save-btn" (click)="saveChanges()">
+        Save Changes
+      </button>
+    </div>
+
+    <div class="details-grid">
+      <!-- Data Fields -->
+      <div class="info-group">
+        <span class="label">First Name</span>
+        <div class="value-box static">
+          {{ profileData.firstName }}
+        </div>
+      </div>
+
+      <div class="info-group">
+        <span class="label">Last Name</span>
+        <div class="value-box static">
+          {{ profileData.lastName || '-' }}
+        </div>
+      </div>
+
+      <div class="info-group span-2">
+        <span class="label">Email Address</span>
+        <div class="value-box" [class.editing]="isEditing">
+          <input *ngIf="isEditing" type="email" [(ngModel)]="email" placeholder="Enter email">
+          <span *ngIf="!isEditing">{{ email }}</span>
+        </div>
+      </div>
+
+      <div class="info-group">
+        <span class="label">Employer</span>
+        <div class="value-box static">
+          {{ profileData.employer }}
+        </div>
+      </div>
+
+      <div class="info-group">
+        <span class="label">Country</span>
+        <div class="value-box static">
+          {{ profileData.country }}
+        </div>
+      </div>
+
+      <div class="info-group">
+        <span class="label">State</span>
+        <div class="value-box static">
+          {{ profileData.state }}
+        </div>
+      </div>
+
+      <div class="info-group">
+        <span class="label">City</span>
+        <div class="value-box static">
+          {{ profileData.city }}
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔷 SECURITY SECTION -->
+    <div class="security-section">
+      <h3>Security</h3>
+      <div class="security-card">
+        <div class="security-info">
+          <p class="security-title">Account Password</p>
+          <p class="security-desc">Update your account password regularly to stay secure.</p>
+        </div>
+        <button class="password-btn" (click)="openChangePassword()">
+          Change Password
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

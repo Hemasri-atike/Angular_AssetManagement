@@ -4,6 +4,7 @@ import { roleGuard } from './core/guards/role.guard';
 import { MainLayoutComponent } from './shared/layouts/main-layout/main-layout.component';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: 'login',
     loadChildren: () =>
@@ -16,6 +17,10 @@ export const routes: Routes = [
     component: MainLayoutComponent,
     canActivate: [authGuard],
     children: [
+      { 
+        path: 'profile', 
+        loadComponent: () => import('./features/user/profile/profile.component').then(m => m.ProfileComponent) 
+      },
       {
         path: 'admin',
         loadChildren: () =>
@@ -69,6 +74,5 @@ export const routes: Routes = [
     ]
   },
 
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' }
 ];

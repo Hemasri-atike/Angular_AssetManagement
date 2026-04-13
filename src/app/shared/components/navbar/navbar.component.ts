@@ -62,19 +62,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     // Map Navbar Links based on Role
     if (role.includes('admin')) {
-      this.navLinks = [
-        { name: 'Dashboard', path: '/admin' },
-        { name: 'Assets', path: '/admin/assets/list' },
-        { name: 'Masters', path: '/admin/assign-role' },
-        { name: 'Reports', path: '/admin/AssetReports' },
-      ];
+      // Admins use Sidebar for navigation, keeping Navbar clean
+      this.navLinks = [];
     } else {
       // For Requester, Approver, Auditor
       this.navLinks = [
-        { name: 'Dashboard', path: '/user' },
-        { name: 'My Assets', path: '/user/allocatedassets' },
-        { name: 'Requests', path: '/user/history' },
-        { name: 'Chatbot', path: '/user/chatbot' },
+     
       ];
     }
   }
@@ -89,6 +82,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   toggleMobileMenu() {
     this.mobileMenuOpen = !this.mobileMenuOpen;
+    this.router.navigate(['/profile']); // Navigate to profile on mobile menu toggle
+    this.profileOpen = false; // Close profile dropdown when toggling mobile menu
   }
 
   logout() {

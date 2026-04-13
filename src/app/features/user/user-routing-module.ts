@@ -4,7 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 const routes: Routes = [
-  { path: '', component: UserDashboardComponent }
+  { path: '', component: UserDashboardComponent },
+  { path: 'profile', loadComponent: () => import('./profile/profile.component').then(m => m.ProfileComponent) }
 ];
 
 @NgModule({

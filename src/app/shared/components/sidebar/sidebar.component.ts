@@ -253,7 +253,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     
     this.menuItems = [
       ...menuItems,
-      { name: "Profile", path: "/user/profile", icon: "account_circle" },
+      { name: "Profile", path: "/profile", icon: "account_circle" },
       { name: "Chatbot", path: "/user/chatbot", icon: "assessment" },
     ];
   }
