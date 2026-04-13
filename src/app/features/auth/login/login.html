@@ -1,0 +1,53 @@
+<div class="login-container">
+  <div class="overlay"></div>
+
+  <div class="login-card">
+    <h1>Log in</h1>
+
+    <!-- User ID Field -->
+    <div class="form-group">
+      <label>User ID</label>
+      <div class="input-wrapper">
+        <mat-icon class="field-icon">person</mat-icon>
+        <input type="text" [(ngModel)]="userId" placeholder="Enter User ID">
+      </div>
+    </div>
+
+    <!-- Password Field -->
+    <div class="form-group">
+      <div class="label-row">
+        <label>Password</label>
+        <button (click)="togglePassword()" class="toggle-link">
+          {{ showPassword ? 'Hide' : 'Show' }}
+        </button>
+      </div>
+      <div class="input-wrapper">
+        <mat-icon class="field-icon">lock</mat-icon>
+        <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="password" placeholder="Enter Password">
+      </div>
+    </div>
+
+    <!-- Forgot Password -->
+    <div class="forgot-row">
+      <a href="javascript:void(0)">Forgot password?</a>
+    </div>
+
+    <!-- Role Selection -->
+    <div class="roles-selection">
+      <label *ngFor="let role of roles" [for]="role" class="role-option">
+        <div class="radio-custom">
+          <input type="radio" [id]="role" name="role" [value]="role" [(ngModel)]="selectedRole">
+          <span class="checkmark"></span>
+        </div>
+        <span class="role-label">{{ role }}</span>
+      </label>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <app-button label="Log In" variant="primary" (btnClick)="onLogin()"></app-button>
+      <app-button label="Download" variant="dark" (btnClick)="onDownload()"></app-button>
+    </div>
+  </div>
+</div>
+

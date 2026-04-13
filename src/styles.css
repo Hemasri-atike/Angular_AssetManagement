@@ -1,3 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import 'tailwindcss';
+
+:root {
+  --gradient-blue: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
+  --gradient-purple: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+  --gradient-sunset: linear-gradient(135deg, #f43f5e 0%, #fb923c 100%);
+  --gradient-dark: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+}
+
+/* Global Gradient Utilities */
+.bg-gradient-primary {
+  background: var(--gradient-blue) !important;
+}
+
+.bg-gradient-secondary {
+  background: var(--gradient-purple) !important;
+}
+
+.bg-gradient-accent {
+  background: var(--gradient-sunset) !important;
+}
+
+.bg-gradient-dark {
+  background: var(--gradient-dark) !important;
+}
+
+.btn-gradient {
+  border: none !important;
+  color: white !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+  cursor: pointer;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.btn-gradient:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+}
+
+.btn-gradient:active {
+  transform: translateY(0);
+}
