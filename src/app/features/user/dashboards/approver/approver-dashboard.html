@@ -1,0 +1,43 @@
+<div class="persona-dashboard animate-fade-in">
+  <div class="welcome-section">
+    <h1>Approval </h1>
+    <p>Manage pending requests and maintain asset deployment velocity.</p>
+  </div>
+
+  <div class="queue-row">
+    <div *ngFor="let item of queues" class="queue-card" [ngClass]="item.color">
+      <div class="queue-icon">
+        <mat-icon>{{ item.icon }}</mat-icon>
+      </div>
+      <div class="queue-data">
+        <span class="queue-count">{{ item.count }}</span>
+        <span class="queue-label">{{ item.label }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="critical-section">
+    <div class="section-card">
+      <div class="card-header">
+        <h2>Action Required</h2>
+        <span class="badge red">High Priority</span>
+      </div>
+      <div class="request-list">
+        <div *ngFor="let req of criticalRequests" class="request-card">
+          <div class="req-main">
+            <div class="user-avatar">{{ req.user.charAt(0) }}</div>
+            <div class="req-info">
+              <span class="req-id">{{ req.id }}</span>
+              <span class="req-title"><strong>{{ req.user }}</strong> requested <strong>{{ req.asset }}</strong></span>
+              <span class="req-sub">{{ req.date }}</span>
+            </div>
+          </div>
+          <div class="req-actions">
+            <button class="approve-btn">Approve</button>
+            <button class="reject-btn">Reject</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

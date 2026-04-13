@@ -1,0 +1,47 @@
+<div class="persona-dashboard animate-fade-in">
+  <div class="welcome-section">
+    <h1>Assurance & Compliance 🔍</h1>
+    <p>Monitoring asset integrity and audit completion across all departments.</p>
+  </div>
+
+  <div class="stats-grid">
+    <div *ngFor="let stat of auditStats" class="stat-card">
+      <div class="stat-top">
+        <span class="stat-label">{{ stat.label }}</span>
+        <mat-icon>{{ stat.icon }}</mat-icon>
+      </div>
+      <div class="stat-middle">
+        <span class="stat-count">{{ stat.count }}</span>
+      </div>
+      <div class="stat-bottom">
+        <span class="stat-sub">{{ stat.sub }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="audit-history">
+    <div class="section-card">
+      <div class="card-header">
+        <h2>Active & Recent Audits</h2>
+        <button class="new-audit-btn">Start New Audit</button>
+      </div>
+      <div class="audit-list">
+        <div *ngFor="let audit of recentAudits" class="audit-row">
+          <div class="audit-info">
+            <span class="audit-name">{{ audit.name }}</span>
+            <span class="audit-date">{{ audit.date }}</span>
+          </div>
+          <div class="audit-progress-box">
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" [style.width.%]="audit.progress"></div>
+            </div>
+            <span class="progress-text">{{ audit.progress }}% Complete</span>
+          </div>
+          <div class="audit-status">
+            <span class="status-tag" [class.done]="audit.status === 'Completed'">{{ audit.status }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

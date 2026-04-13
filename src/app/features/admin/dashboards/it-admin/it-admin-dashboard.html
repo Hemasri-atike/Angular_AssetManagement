@@ -1,0 +1,68 @@
+<div class="persona-dashboard animate-fade-in">
+  <div class="welcome-section">
+    <h1>IT Admin Dashboard</h1>
+    <p>Monitoring your hardware infrastructure and deployment queues.</p>
+  </div>
+
+  <div class="stats-row">
+    <div *ngFor="let stat of stats" class="kpi-card" [ngClass]="stat.color">
+      <div class="kpi-icon">
+        <mat-icon>{{ stat.icon }}</mat-icon>
+      </div>
+      <div class="kpi-data">
+        <span class="kpi-value">{{ stat.value }}</span>
+        <span class="kpi-label">{{ stat.label }}</span>
+      </div>
+      <div class="kpi-trend">{{ stat.trend }}</div>
+    </div>
+  </div>
+
+  <div class="dashboard-grid">
+    <div class="grid-card main-panel">
+      <div class="card-header">
+        <h2>Deployment Status</h2>
+        <div class="action-buttons">
+          <button class="mini-btn">Week</button>
+          <button class="mini-btn active">Month</button>
+        </div>
+      </div>
+      <div class="chart-box">
+        <!-- Mock Chart Visualization -->
+        <div class="progress-container">
+          <div class="progress-bar-wrapper">
+            <span class="meta">Laptops (95/100)</span>
+            <div class="bar-bg"><div class="bar-fill blue" style="width: 95%"></div></div>
+          </div>
+          <div class="progress-bar-wrapper">
+            <span class="meta">Monitors (40/60)</span>
+            <div class="bar-bg"><div class="bar-fill purple" style="width: 66%"></div></div>
+          </div>
+          <div class="progress-bar-wrapper">
+            <span class="meta">Peripherals (150/200)</span>
+            <div class="bar-bg"><div class="bar-fill orange" style="width: 75%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-card side-panel">
+      <div class="card-header">
+        <h2>Activity Log</h2>
+      </div>
+      <div class="log-list">
+        <div *ngFor="let log of recentLogs" class="log-item">
+          <div class="log-info">
+            <span class="log-action">{{ log.action }}</span>
+            <span class="log-user">{{ log.user }}</span>
+          </div>
+          <div class="log-meta">
+            <span class="log-time">{{ log.time }}</span>
+            <span class="log-status" [class.success]="log.status === 'Success'" [class.pending]="log.status !== 'Success'">
+              {{ log.status }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

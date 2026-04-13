@@ -1,0 +1,79 @@
+<div class="requester-dashboard animate-fade-in">
+  <!-- Welcome Banner -->
+  <div class="welcome-card">
+    <div class="banner-overlay"></div>
+    <div class="banner-content">
+      <h1>Hello, Requester! 👋</h1>
+      <p>Manage your professional equipment and service requests in one place.</p>
+    </div>
+  </div>
+
+  <div class="dashboard-rows">
+    <!-- Quick Actions Row -->
+    <div class="actions-section">
+      <h3>Quick Actions</h3>
+      <div class="actions-grid">
+        <div *ngFor="let item of quickActions" class="action-card">
+          <div class="action-icon">
+            <mat-icon>{{ item.icon }}</mat-icon>
+          </div>
+          <span class="action-label">{{ item.label }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Assets and Requests Row -->
+    <div class="split-grid">
+      <!-- Left: My Assets -->
+      <div class="panel-card">
+        <div class="panel-header">
+          <h2>My Assigned Assets</h2>
+          <span class="count-pill">{{ myAssets.length }}</span>
+        </div>
+        <div class="asset-list">
+          <div *ngFor="let asset of myAssets" class="asset-item">
+            <div class="asset-main">
+              <mat-icon>{{ asset.icon }}</mat-icon>
+              <div class="asset-text">
+                <span class="asset-name">{{ asset.name }}</span>
+                <span class="asset-serial">SN: {{ asset.serial }}</span>
+              </div>
+            </div>
+            <div class="asset-status">
+              <span class="status-tag active">{{ asset.status }}</span>
+            </div>
+          </div>
+          <div *ngIf="myAssets.length === 0" class="empty-state">
+            <mat-icon>devices_other</mat-icon>
+            <p>No assets assigned to you yet.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Pending Requests -->
+      <div class="panel-card">
+        <div class="panel-header">
+          <h2>Request Status</h2>
+        </div>
+        <div class="request-queue">
+          <div *ngFor="let req of pendingRequests" class="request-item">
+            <div class="req-header">
+              <span class="req-type">{{ req.type }}</span>
+              <span class="req-date">{{ req.date }}</span>
+            </div>
+            <div class="req-stepper">
+              <div class="step-line">
+                <div class="step-fill" style="width: 50%"></div>
+              </div>
+              <div class="step-label">Current Stage: <strong>{{ req.stage }}</strong></div>
+            </div>
+          </div>
+          <div *ngIf="pendingRequests.length === 0" class="empty-state">
+            <mat-icon>history</mat-icon>
+            <p>All your requests are processed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="persona-dashboard animate-fade-in">
+  <div class="welcome-section">
+    <h1>HR Master Dashboard 👥</h1>
+    <p>Managing employee asset relations and department-wise allocation health.</p>
+  </div>
+
+  <div class="metrics-grid">
+    <div *ngFor="let item of metrics" class="metric-card">
+      <div class="metric-header">
+        <mat-icon>{{ item.icon }}</mat-icon>
+        <span class="metric-count">{{ item.count }}</span>
+      </div>
+      <div class="metric-footer">
+        <span class="metric-label">{{ item.label }}</span>
+        <span class="metric-sub">{{ item.sub }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="dept-section">
+    <div class="section-card">
+      <div class="card-header">
+        <h2>Department Allocation Health</h2>
+        <button class="export-btn">Download Report</button>
+      </div>
+      <div class="dept-table-wrapper">
+        <table class="dept-table">
+          <thead>
+            <tr>
+              <th>Department</th>
+              <th>Employees</th>
+              <th>Assets</th>
+              <th>Health Score</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let dept of departments">
+              <td class="font-bold">{{ dept.name }}</td>
+              <td>{{ dept.employees }}</td>
+              <td>{{ dept.assets }}</td>
+              <td>
+                <div class="health-indicator">
+                  <div class="health-bar-bg">
+                    <div class="health-bar-fill" [style.width.%]="dept.health" 
+                         [class.high]="dept.health >= 90" 
+                         [class.mid]="dept.health < 90 && dept.health >= 85"></div>
+                  </div>
+                  <span class="health-val">{{ dept.health }}%</span>
+                </div>
+              </td>
+              <td><button class="view-btn">Details</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
