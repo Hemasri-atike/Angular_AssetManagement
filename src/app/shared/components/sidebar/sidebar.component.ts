@@ -168,11 +168,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
           name: "Print QR Codes",
           icon: "qr_code",
           subMenu: [
-            { name: "QRCodes for Double Sticker", path: "/admin/chatbot" },
-            { name: "QRCodes for Single Sticker", path: "/admin/chatbot" },
-            { name: "QRCodes for Single Asset", path: "/admin/chatbot" },
-            { name: "QRCodes for Asset type", path: "/admin/chatbot" },
-            { name: "QRCodes for Asset Create Date", path: "/admin/chatbot" },
+            { name: "QRCodes for Double Sticker", path: "/ai-chatbot" },
+            { name: "QRCodes for Single Sticker", path: "/ai-chatbot" },
+            { name: "QRCodes for Single Asset", path: "/ai-chatbot" },
+            { name: "QRCodes for Asset type", path: "/ai-chatbot" },
+            { name: "QRCodes for Asset Create Date", path: "/ai-chatbot" },
           ],
         },
         {
@@ -254,7 +254,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.menuItems = [
       ...menuItems,
       { name: "Profile", path: "/profile", icon: "account_circle" },
-      { name: "Chatbot", path: "/user/chatbot", icon: "assessment" },
+      { name: "AI Chatbot", path: "/ai-chatbot", icon: "smart_toy" },
     ];
   }
 }

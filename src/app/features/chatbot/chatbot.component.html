@@ -1,0 +1,128 @@
+<div [ngClass]="{'bg-[#0f172a] text-white': darkMode, 'bg-gray-100 text-black': !darkMode}" class="h-screen flex transition-colors duration-300">
+  
+  <!-- Main Chat -->
+  <div class="flex-1 flex flex-col">
+    <!-- Header -->
+    <div [ngClass]="{'border-gray-700 bg-[#1e293b]': darkMode, 'bg-white border-gray-200': !darkMode}"
+         class="p-4 border-b flex justify-between items-center shadow-sm">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl">🤖</span>
+        <h1 class="font-bold text-lg tracking-tight">AI Chatbot Asset Management</h1>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button (click)="startNewChat()" 
+                class="text-sm font-medium px-4 py-2 rounded-lg transition-all hover:bg-blue-500 hover:text-white border border-blue-500 text-blue-500"
+                *ngIf="activeChatIndex !== null">
+          + New Chat
+        </button>
+        <button (click)="toggleDarkMode()" class="text-xl p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+          {{ darkMode ? '☀️' : '🌙' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div class="flex-1 overflow-y-auto px-4 py-6 space-y-6 scroll-smooth">
+      <div *ngIf="activeMessages.length === 0" class="text-center text-gray-400 mt-20 animate-fade-in">
+        <div class="text-5xl mb-4">🚀</div>
+        <p class="text-lg">Ask something like:</p>
+        <button (click)="sendMessage('How many assets are there?')" 
+                class="mt-2 text-blue-500 hover:underline font-medium">
+          "How many assets are there?"
+        </button>
+      </div>
+
+      <div *ngFor="let msg of activeMessages; let i = index" 
+           class="flex" 
+           [ngClass]="msg.sender === 'user' ? 'justify-end' : 'justify-start'">
+        
+        <div [ngClass]="{
+             'bg-blue-600 text-white shadow-blue-500/20': msg.sender === 'user',
+             'bg-gray-800 text-gray-200 shadow-black/20': msg.sender === 'bot' && darkMode,
+             'bg-white text-gray-800 shadow-gray-200/50': msg.sender === 'bot' && !darkMode
+           }"
+             class="px-5 py-3 rounded-2xl max-w-2xl text-[15px] shadow-lg transition-all duration-300 hover:scale-[1.01]">
+          
+          <!-- Table Response -->
+          <div *ngIf="isTable(msg.text); else plainText" class="overflow-x-auto mt-2 mb-1">
+            <table class="table-auto border-separate border-spacing-0 w-full text-sm border border-gray-400/30 rounded-lg overflow-hidden">
+              <tbody>
+                <tr *ngFor="let cells of getTableRows(msg.text); let rowIndex = index">
+                  <td *ngFor="let cell of cells; let cellIndex = index" 
+                      class="border border-gray-400/30 px-3 py-2"
+                      [ngClass]="{'bg-gray-700/30 font-semibold': rowIndex === 0 && msg.sender === 'bot'}">
+                    {{ cell }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <ng-template #plainText>
+            <div class="whitespace-pre-wrap leading-relaxed">{{ msg.text }}</div>
+          </ng-template>
+
+          <div class="text-[10px] mt-2 opacity-60 flex justify-end font-medium uppercase tracking-wider">
+            {{ msg.time }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Typing animation -->
+      <div *ngIf="loading" class="flex items-center space-x-2 text-gray-400 p-2 ml-2">
+        <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+        <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-100"></div>
+        <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-200"></div>
+      </div>
+
+      <div #messagesEnd></div>
+    </div>
+
+    <!-- Suggestion Cards -->
+    <div [ngClass]="{'border-gray-700 bg-[#0f172a]': darkMode, 'bg-gray-50 border-gray-200': !darkMode}"
+         class="px-4 pt-4 pb-2 border-t overflow-x-auto no-scrollbar">
+      <p [ngClass]="darkMode ? 'text-gray-500' : 'text-gray-400'"
+         class="text-[10px] font-bold mb-3 tracking-[0.1em] uppercase ml-1">
+        ✨ Quick Inquiries
+      </p>
+      <div class="flex gap-2 pb-2">
+        <button *ngFor="let text of suggestions" 
+                (click)="handleSuggestionClick(text)" 
+                [disabled]="loading"
+                [ngClass]="{
+                  'bg-slate-800 border-gray-700 text-blue-400 hover:border-blue-500 hover:shadow-blue-500/20': darkMode,
+                  'bg-white border-gray-200 text-blue-600 hover:border-blue-400 hover:shadow-gray-300/40': !darkMode,
+                  'opacity-50 cursor-not-allowed': loading
+                }"
+                class="whitespace-nowrap px-4 py-2 rounded-xl text-xs font-semibold border shadow-sm transition-all duration-200 hover:-translate-y-1 active:scale-95">
+          {{ text }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div [ngClass]="{'border-gray-700 bg-[#020617]': darkMode, 'bg-white border-gray-200': !darkMode}"
+         class="p-4 border-t">
+      <div class="max-w-4xl mx-auto flex items-center gap-3">
+        <div class="flex-1 relative">
+          <input [(ngModel)]="input" 
+                 (keydown)="handleKeyPress($event)"
+                 [ngClass]="{
+                   'bg-gray-800 text-white border-gray-600 focus:border-blue-500': darkMode,
+                   'bg-gray-100 text-gray-900 border-transparent focus:border-blue-500': !darkMode
+                 }"
+                 class="w-full pl-5 pr-12 py-3.5 rounded-2xl outline-none border-2 transition-all duration-200 text-sm placeholder-gray-500 shadow-inner" 
+                 placeholder="Type your asset query here..." />
+          
+          <button (click)="sendMessage()" 
+                  [disabled]="!input.trim()"
+                  [ngClass]="input.trim() ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-gray-400 text-gray-200 cursor-not-allowed'"
+                  class="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-xl transition-all duration-200 flex items-center justify-center">
+            <mat-icon class="scale-90">arrow_upward</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

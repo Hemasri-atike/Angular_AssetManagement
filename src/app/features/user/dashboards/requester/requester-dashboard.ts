@@ -23,6 +23,6 @@ export class RequesterDashboardComponent {
     { label: 'Request Asset', icon: 'add_shopping_cart', path: '/user/assets/request-access' },
     { label: 'Asset Return', icon: 'keyboard_return', path: '/user/assets/asset-return' },
     { label: 'Location Transfer', icon: 'location_on', path: '/user/assets/location-transfer' },
-    { label: 'Chat Support', icon: 'chat', path: '/user/chatbot' }
+    { label: 'AI Chatbot', icon: 'smart_toy', path: '/ai-chatbot' }
   ];
 }

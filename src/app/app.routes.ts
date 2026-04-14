@@ -70,6 +70,10 @@ export const routes: Routes = [
         canActivate: [roleGuard],
         data: { role: 'approver' }
       },
+      {
+        path: 'ai-chatbot',
+        loadComponent: () => import('./features/chatbot/chatbot.component').then(m => m.ChatbotComponent)
+      },
       { path: 'dashboard', redirectTo: 'user', pathMatch: 'full' }
     ]
   },
