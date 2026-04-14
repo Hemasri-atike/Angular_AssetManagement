@@ -1,0 +1,105 @@
+<!--Floating FAB Button -->
+<button (click)="toggleChat()"
+        class="support-fab"
+        [class.active]="open">
+  <mat-icon>{{ open ? 'close' : 'chat' }}</mat-icon>
+  
+  <span *ngIf="!open" class="pulse-indicator">
+    <span class="ping"></span>
+    <span class="dot"></span>
+  </span>
+</button>
+
+<!-- 💬 Glassmorphism Chat Box -->
+<div class="chat-box" [class.visible]="open">
+  
+  <!-- Premium Header -->
+  <header class="chat-header">
+    <div class="header-decor"></div>
+    <div class="bot-info">
+      <div class="avatar-parent">
+        <div class="bot-avatar">
+          <mat-icon>smart_toy</mat-icon>
+        </div>
+        <span class="online-dot"></span>
+      </div>
+      <div class="text-content">
+        <h3>Neemus Assistant</h3>
+        <div class="status-row">
+          <span class="tag">Online</span>
+          <span class="sub">Replies in seconds</span>
+        </div>
+      </div>
+    </div>
+    <button (click)="toggleChat()" class="close-header-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </header>
+
+  <!-- Message Container -->
+  <div class="message-viewport">
+    <!-- Welcome State -->
+    <div *ngIf="messages.length === 0" class="welcome-container">
+      <div class="welcome-icon">
+        <mat-icon>smart_toy</mat-icon>
+      </div>
+      <div class="welcome-text">
+        <p class="greeting">Hello there! 👋</p>
+        <p class="hint">How can I help you today? Ask me about asset management or reports.</p>
+      </div>
+      <div class="quick-chips">
+        <button *ngFor="let chip of ['Check Assets', 'Recent Reports', 'Support']"
+                (click)="setQuickReply(chip)"
+                class="chip">
+          {{ chip }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Message List -->
+    <div *ngFor="let msg of messages" 
+         class="message-row"
+         [class.user]="msg.sender === 'user'">
+      <div class="msg-avatar">
+        <mat-icon>{{ msg.sender === 'user' ? 'person' : 'smart_toy' }}</mat-icon>
+      </div>
+      <div class="msg-bubble">
+        <p>{{ msg.text }}</p>
+        <span class="timestamp">{{ msg.timestamp }}</span>
+      </div>
+    </div>
+
+    <!-- Typing Indicator -->
+    <div *ngIf="isTyping" class="message-row">
+      <div class="msg-avatar">
+        <mat-icon>smart_toy</mat-icon>
+      </div>
+      <div class="typing-bubble">
+        <div class="dots">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+
+    <div #chatEnd></div>
+  </div>
+
+  <!-- Input Bar -->
+  <footer class="chat-footer">
+    <div class="input-container">
+      <input type="text" 
+             [(ngModel)]="input" 
+             (keydown.enter)="sendMessage()"
+             placeholder="What's on your mind?..."
+             class="chat-input" />
+      <button (click)="sendMessage()" 
+              [disabled]="!input.trim()"
+              class="send-btn"
+              [class.ready]="input.trim()">
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+    <p class="brand-footer">Powered by Neemus AI</p>
+  </footer>
+
+</div>
