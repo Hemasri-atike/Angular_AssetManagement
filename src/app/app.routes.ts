@@ -21,6 +21,16 @@ export const routes: Routes = [
         path: 'profile', 
         loadComponent: () => import('./features/user/profile/profile.component').then(m => m.ProfileComponent) 
       },
+
+      // ✅ OVERVIEW GRID ROUTE - Added for Admin only
+      {
+        path: 'overview-grid',
+        loadComponent: () => import('./shared/overview-grid/overview-grid')
+                             .then(m => m.OverviewGridComponent),
+        canActivate: [roleGuard],
+        data: { role: 'admin' }          // ← This restricts it to Admin only
+      },
+
       {
         path: 'admin',
         loadChildren: () =>

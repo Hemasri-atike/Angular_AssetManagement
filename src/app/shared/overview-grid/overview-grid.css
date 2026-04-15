@@ -1,0 +1,183 @@
+/* Control Section */
+.control-section {
+  padding: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Employee Cell */
+.emp-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.empimg {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.e-userimg {
+  font-size: 20px;
+  line-height: 32px;
+}
+
+.male-icon {
+  background: #e3f2fd;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.female-icon {
+  background: #fce4ec;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emp-name {
+  font-weight: 500;
+  color: #333;
+}
+
+/* Location */
+.loc {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.loc-icon {
+  font-size: 14px;
+}
+
+/* Status Badges */
+.statustemp {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.statustemp.e-activecolor {
+  background: #d4edda;
+}
+
+.statustxt.e-activecolor {
+  color: #155724;
+}
+
+.statustemp.e-inactivecolor {
+  background: #f8d7da;
+}
+
+.statustxt.e-inactivecolor {
+  color: #c0392b;
+}
+
+/* Trustworthiness */
+.trust {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.trust-icon {
+  font-size: 12px;
+}
+
+.trust-text {
+  font-weight: 500;
+  color: #444;
+}
+
+/* Rating */
+.rate {
+  display: flex;
+  align-items: center;
+}
+
+.rating {
+  display: inline-block;
+}
+
+.custom-rating .e-rating-container .e-rating-item-list .e-rating-item-container .e-sr-only {
+  display: none;
+}
+
+/* Progress Bar */
+.pbar {
+  height: 18px;
+  background: #e9ecef;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.bar {
+  height: 100%;
+  background: linear-gradient(90deg, #34a853, #4caf50);
+  border-radius: 4px;
+  position: relative;
+  transition: width 0.3s ease;
+}
+
+.progressdisable {
+  background: linear-gradient(90deg, #6c757d, #868e96);
+}
+
+.barlabel {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Message display */
+#msg {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 500;
+  font-size: 14px;
+  color: #555;
+}
+
+.e-hide {
+  display: none;
+}
+
+/* Grid header styling */
+:host ::ng-deep .e-grid .e-headercell {
+  font-weight: 600 !important;
+  color: #444 !important;
+  background-color: #f8f9fa !important;
+}
+
+:host ::ng-deep .e-grid .e-rowcell {
+  font-size: 13px;
+  color: #333;
+}
+
+:host ::ng-deep .e-grid .e-row:hover .e-rowcell {
+  background-color: #f1f3f5 !important;
+}
+
+/* Filter icon styling */
+:host ::ng-deep .e-grid .e-filtermenudiv {
+  display: inline-flex !important;
+}
